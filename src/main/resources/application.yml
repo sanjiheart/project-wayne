@@ -5,5 +5,6 @@ logging.level:
   tw.sanjiheart: DEBUG
 
 gateway:
+  # change to real gateway host
   host: 192.168.1.211
   port: 48001
