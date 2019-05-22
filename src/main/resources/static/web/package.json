@@ -1,0 +1,11 @@
+{
+  "name": "project-wayne",
+  "version": "1.0.0",
+  "description": "Respect Wayne",
+  "main": "dashboard.js",
+  "author": "sanjiheart",
+  "license": "MIT",
+  "dependencies": {
+    "admin-lte": "2.4.10"
+  }
+}
