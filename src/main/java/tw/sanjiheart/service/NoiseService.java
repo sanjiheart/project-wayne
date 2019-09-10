@@ -1,7 +1,6 @@
 package tw.sanjiheart.service;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -39,7 +38,7 @@ public class NoiseService {
   @Autowired
   private NoiseRepo noiseRepo;
 
-  @Scheduled(fixedDelay = 1000)
+  @Scheduled(fixedDelay = 5000)
   private void getNoise() {
     try {
       clientSocket = new Socket(host, port);
@@ -64,8 +63,12 @@ public class NoiseService {
       in.close();
       out.close();
       clientSocket.close();
-    } catch (IOException e) {
-      e.printStackTrace();
+    } catch (Exception e) {
+      Noise noise = new Noise();
+      noise.setValue(0);
+      noise.setAt(System.currentTimeMillis());
+      noiseRepo.save(noise);
+      logger.error(e.getMessage());
     }
   }
 
