@@ -4,14 +4,16 @@ public class Pokeman {
 
   private String name;
   private String gender;
+  private int lv;
   private Status status;
 
   public Pokeman() {}
 
-  public Pokeman(String name, String gender, Status status) {
+  public Pokeman(String name, String gender, int lv, Status status) {
     super();
     this.name = name;
     this.gender = gender;
+    this.lv = lv;
     this.status = status;
   }
 
@@ -31,6 +33,14 @@ public class Pokeman {
     this.gender = gender;
   }
 
+  public int getLv() {
+    return lv;
+  }
+
+  public void setLv(int lv) {
+    this.lv = lv;
+  }
+
   public Status getStatus() {
     return status;
   }
@@ -41,7 +51,7 @@ public class Pokeman {
 
   @Override
   public String toString() {
-    return "Person [name=" + name + ", gender=" + gender + ", status=" + status + "]";
+    return "Pokeman [name=" + name + ", gender=" + gender + ", lv=" + lv + ", status=" + status + "]";
   }
 
 }

@@ -12,7 +12,7 @@ public class PokemanService {
 
   public Pokeman hero() {
     Status status = new Status(255, 255, 255, 100, 100, 128);
-    Pokeman wayne = new Pokeman("Wayne", "Male", status);
+    Pokeman wayne = new Pokeman("Wayne", "Male", 100, status);
     return wayne;
   }
 
@@ -24,8 +24,8 @@ public class PokemanService {
     int sAtk = 20 + r.nextInt(256);
     int sDef = 20 + r.nextInt(256);
     int spd = 20 + r.nextInt(256);
-    Status stat = new Status(hp, atk, def, sAtk, sDef, spd);
-    Pokeman pokeman = new Pokeman("Peter", "Male", stat);
+    Status status = new Status(hp, atk, def, sAtk, sDef, spd);
+    Pokeman pokeman = new Pokeman("Peter", "Male", 100, status);
     return pokeman;
   }
 
