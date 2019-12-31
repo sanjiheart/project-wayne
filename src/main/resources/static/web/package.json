@@ -6,6 +6,7 @@
   "author": "sanjiheart",
   "license": "MIT",
   "dependencies": {
-    "admin-lte": "2.4.10"
+    "admin-lte": "^3.0",
+    "vue": "^2.6.11"
   }
 }
