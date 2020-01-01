@@ -42,32 +42,32 @@ $(function () {
                     console.error(JSON.stringify(jqXHR));
                 });
             },
+            getAttackerAndDefender() {
+                if (this.hero.status.speed > this.enemy.status.speed && this.round % 2 === 1) {
+                    return { attacker: this.hero, defender: this.enemy };
+                } else if (this.hero.status.speed > this.enemy.status.speed && this.round % 2 === 0) {
+                    return { attacker: this.enemy, defender: this.hero };
+                } else if (this.hero.status.speed < this.enemy.status.speed && this.round % 2 === 1) {
+                    return { attacker: this.enemy, defender: this.hero };
+                } else if (this.hero.status.speed < this.enemy.status.speed && this.round % 2 === 0) {
+                    return { attacker: this.hero, defender: this.enemy };
+                }
+            },
             battle() {
                 // pokemon damage formula: damage = ((2 * LV + 10) / 250 * (ATK / DEF) * move damage + 2) * bonus
                 console.log('===Round ' + ++this.round + '===');
-                if (this.round % 2 === 1) {
-                    let { attacker, defender } = this.hero.status.speed > this.enemy.status.speed
-                        ? { attacker: this.hero, defender: this.enemy }
-                        : { attacker: this.enemy, defender: this.hero };
-                    let a = (2 * attacker.lv + 10) / 250;
-                    console.log(a);
-                    let b = attacker.status.attack / defender.status.defense;
-                    console.log(b);
-                    let dmg = (a * b * 80 + 2) * 1
-                    console.log(dmg);
-                    defender.status.hp = defender.status.hp - dmg > 0 ? defender.status.hp - dmg : 0;
-                } else {
-                    let { attacker, defender } = this.hero.status.speed > this.enemy.status.speed
-                        ? { attacker: this.enemy, defender: this.hero }
-                        : { attacker: this.hero, defender: this.enemy };
-                    let a = (2 * attacker.lv + 10) / 250;
-                    console.log(a);
-                    let b = attacker.status.attack / defender.status.defense;
-                    console.log(b);
-                    let dmg = (a * b * 80 + 2) * 1
-                    console.log(dmg);
-                    defender.status.hp = defender.status.hp - dmg > 0 ? defender.status.hp - dmg : 0;
-                }
+                let { attacker, defender } = this.getAttackerAndDefender();
+                let a = (2 * attacker.lv + 10) / 250;
+                console.log(a);
+                let b = attacker.status.attack / defender.status.defense;
+                console.log(b);
+                let dmg = Math.round((a * b * 80 + 2) * 1);
+                console.log(dmg);
+                Swal.fire({
+                    titleText: `Round ${this.round}`,
+                    text: `${attacker.name} deals ${dmg} damage to ${defender.name}.`
+                });
+                defender.status.hp = defender.status.hp - dmg > 0 ? defender.status.hp - dmg : 0;
             }
         },
         mounted() {
