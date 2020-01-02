@@ -29,7 +29,10 @@ $(function () {
                 },
                 photoUrl: 'imgs/enemy.png'
             },
-            round: 0
+            round: 0,
+            battleAudio: new Audio('sounds/battle.wav'),
+            atkAudio: new Audio('sounds/attack.wav'),
+            sAtkAudio: new Audio('sounds/special-attack.wav')
         },
         methods: {
             getPokeman(no) {
@@ -46,6 +49,17 @@ $(function () {
                 }).fail(jqXHR => {
                     console.error(JSON.stringify(jqXHR));
                 });
+            },
+            playBattleAudio() {
+                let $svg = $(event.currentTarget).find('svg');
+                if ($svg.hasClass('fa-volume-mute')) {
+                    this.battleAudio.pause();
+                    $svg.removeClass('fa-volume-mute').addClass('fa-volume-up');
+                } else {
+                    this.battleAudio.loop = true;
+                    this.battleAudio.play();
+                    $svg.removeClass('fa-volume-up').addClass('fa-volume-mute');
+                }
             },
             getAttackerAndDefender() {
                 if (this.hero.status.speed >= this.enemy.status.speed && this.round % 2 === 1) {
@@ -65,6 +79,7 @@ $(function () {
                 let b = attacker.status.attack >= attacker.status.specialAttack
                     ? attacker.status.attack / defender.status.defense
                     : attacker.status.specialAttack / defender.status.specialDefense;
+                attacker.status.attack >= attacker.status.specialAttack ? this.atkAudio.play() : this.sAtkAudio.play();
                 let dmg = Math.round((a * b * 80 + 2) * 1);
                 $(`img[src="${attacker.photoUrl}"`).removeClass('animated shake');
                 $(`img[src="${defender.photoUrl}"`).addClass('animated shake');
