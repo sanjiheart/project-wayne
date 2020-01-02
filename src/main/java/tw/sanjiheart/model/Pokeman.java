@@ -6,15 +6,17 @@ public class Pokeman {
   private String gender;
   private int lv;
   private Status status;
+  private String photoUrl;
 
   public Pokeman() {}
 
-  public Pokeman(String name, String gender, int lv, Status status) {
+  public Pokeman(String name, String gender, int lv, Status status, String photoUrl) {
     super();
     this.name = name;
     this.gender = gender;
     this.lv = lv;
     this.status = status;
+    this.photoUrl = photoUrl;
   }
 
   public String getName() {
@@ -49,9 +51,18 @@ public class Pokeman {
     this.status = status;
   }
 
+  public String getPhotoUrl() {
+    return photoUrl;
+  }
+
+  public void setPhotoUrl(String photoUrl) {
+    this.photoUrl = photoUrl;
+  }
+
   @Override
   public String toString() {
-    return "Pokeman [name=" + name + ", gender=" + gender + ", lv=" + lv + ", status=" + status + "]";
+    return "Pokeman [name=" + name + ", gender=" + gender + ", lv=" + lv + ", status=" + status + ", photoUrl="
+        + photoUrl + "]";
   }
 
 }

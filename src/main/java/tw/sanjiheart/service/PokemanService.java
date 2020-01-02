@@ -18,7 +18,7 @@ public class PokemanService {
 
   public Pokeman hero() {
     Status status = new Status(255, 255, 255, 100, 100, 128);
-    Pokeman wayne = new Pokeman("Wayne", "Male", 100, status);
+    Pokeman wayne = new Pokeman("Wayne", "Male", 100, status, "imgs/hero.jpg");
     return wayne;
   }
 
@@ -28,7 +28,7 @@ public class PokemanService {
     headers.set("User-Agent",
         "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36");
     RequestEntity<Void> reqEntity = new RequestEntity<Void>(headers, HttpMethod.GET,
-        URI.create("https://uinames.com/api/"));
+        URI.create("https://uinames.com/api/?ext"));
     Uniname uniname = restTemplate.exchange(reqEntity, Uniname.class).getBody();
     Random r = new Random();
     int hp = 20 + r.nextInt(236);
@@ -38,7 +38,7 @@ public class PokemanService {
     int sDef = 20 + r.nextInt(236);
     int spd = 20 + r.nextInt(236);
     Status status = new Status(hp, atk, def, sAtk, sDef, spd);
-    Pokeman pokeman = new Pokeman(uniname.getName(), uniname.getGender(), 100, status);
+    Pokeman pokeman = new Pokeman(uniname.getName(), uniname.getGender(), 100, status, uniname.getPhoto());
     return pokeman;
   }
 

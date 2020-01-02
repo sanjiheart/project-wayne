@@ -6,6 +6,7 @@ $(function () {
         el: '.content-wrapper',
         data: {
             hero: {
+                name: 'Wayne',
                 status: {
                     hp: 0,
                     attack: 0,
@@ -13,9 +14,11 @@ $(function () {
                     specialAttack: 0,
                     specialDefense: 0,
                     speed: 0
-                }
+                },
+                photoUrl: 'imgs/hero.jpg'
             },
             enemy: {
+                name: '???',
                 status: {
                     hp: 0,
                     attack: 0,
@@ -23,29 +26,31 @@ $(function () {
                     specialAttack: 0,
                     specialDefense: 0,
                     speed: 0
-                }
+                },
+                photoUrl: 'imgs/enemy.png'
             },
             round: 0
         },
         methods: {
             getPokeman(isHero) {
                 $.ajax({
-                    url: `http://localhost:8888/api/pokeman?hero=${isHero}`,
+                    url: `${GLOBAL_CONFIG.apiEndpoint}/pokeman?hero=${isHero}`,
                     method: 'GET'
                 }).done(pokeman => {
                     if (isHero) {
                         this.hero = pokeman;
                     } else {
                         this.enemy = pokeman;
+                        $('#battle').prop('disabled', false);
                     }
                 }).fail(jqXHR => {
                     console.error(JSON.stringify(jqXHR));
                 });
             },
             getAttackerAndDefender() {
-                if (this.hero.status.speed > this.enemy.status.speed && this.round % 2 === 1) {
+                if (this.hero.status.speed >= this.enemy.status.speed && this.round % 2 === 1) {
                     return { attacker: this.hero, defender: this.enemy };
-                } else if (this.hero.status.speed > this.enemy.status.speed && this.round % 2 === 0) {
+                } else if (this.hero.status.speed >= this.enemy.status.speed && this.round % 2 === 0) {
                     return { attacker: this.enemy, defender: this.hero };
                 } else if (this.hero.status.speed < this.enemy.status.speed && this.round % 2 === 1) {
                     return { attacker: this.enemy, defender: this.hero };
@@ -55,24 +60,37 @@ $(function () {
             },
             battle() {
                 // pokemon damage formula: damage = ((2 * LV + 10) / 250 * (ATK / DEF) * move damage + 2) * bonus
-                console.log('===Round ' + ++this.round + '===');
                 let { attacker, defender } = this.getAttackerAndDefender();
                 let a = (2 * attacker.lv + 10) / 250;
-                console.log(a);
                 let b = attacker.status.attack / defender.status.defense;
-                console.log(b);
                 let dmg = Math.round((a * b * 80 + 2) * 1);
-                console.log(dmg);
-                Swal.fire({
-                    titleText: `Round ${this.round}`,
-                    text: `${attacker.name} deals ${dmg} damage to ${defender.name}.`
-                });
                 defender.status.hp = defender.status.hp - dmg > 0 ? defender.status.hp - dmg : 0;
+                if (defender.status.hp === 0) {
+                    Swal.fire({
+                        titleText: `Congratulations to ${attacker.name}`,
+                        text: `${defender.name} has been K.O.`,
+                        icon: 'success',
+                        iconHtml: '<i class="fas fa-trophy"></i>',
+                        confirmButtonText: 'Good Job'
+                    });
+                    // reset
+                    this.round = 0;
+                    $('#battle').prop('disabled', true);
+                } else {
+                    Swal.fire({
+                        titleText: `Round ${++this.round}`,
+                        text: `${attacker.name} deals ${dmg} damage to ${defender.name}.`,
+                        toast: true,
+                        position: 'bottom',
+                        timer: 3000,
+                        timerProgressBar: true,
+                        showConfirmButton: false
+                    });
+                }
             }
         },
         mounted() {
             this.getPokeman(true);
-            this.getPokeman(false);
         }
     });
 
