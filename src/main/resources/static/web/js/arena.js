@@ -32,12 +32,12 @@ $(function () {
             round: 0
         },
         methods: {
-            getPokeman(isHero) {
+            getPokeman(no) {
                 $.ajax({
-                    url: `${GLOBAL_CONFIG.apiEndpoint}/pokeman?hero=${isHero}`,
+                    url: `${GLOBAL_CONFIG.apiEndpoint}/pokeman/${no}`,
                     method: 'GET'
                 }).done(pokeman => {
-                    if (isHero) {
+                    if (no === 1) {
                         this.hero = pokeman;
                     } else {
                         this.enemy = pokeman;
@@ -62,8 +62,12 @@ $(function () {
                 // pokemon damage formula: damage = ((2 * LV + 10) / 250 * (ATK / DEF) * move damage + 2) * bonus
                 let { attacker, defender } = this.getAttackerAndDefender();
                 let a = (2 * attacker.lv + 10) / 250;
-                let b = attacker.status.attack / defender.status.defense;
+                let b = attacker.status.attack >= attacker.status.specialAttack
+                    ? attacker.status.attack / defender.status.defense
+                    : attacker.status.specialAttack / defender.status.specialDefense;
                 let dmg = Math.round((a * b * 80 + 2) * 1);
+                $(`img[src="${attacker.photoUrl}"`).removeClass('animated shake');
+                $(`img[src="${defender.photoUrl}"`).addClass('animated shake');
                 defender.status.hp = defender.status.hp - dmg > 0 ? defender.status.hp - dmg : 0;
                 if (defender.status.hp === 0) {
                     Swal.fire({
@@ -90,7 +94,7 @@ $(function () {
             }
         },
         mounted() {
-            this.getPokeman(true);
+            this.getPokeman(1);
         }
     });
 

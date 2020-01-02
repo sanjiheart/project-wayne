@@ -3,6 +3,7 @@ package tw.sanjiheart.service;
 import java.net.URI;
 import java.util.Random;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
@@ -12,14 +13,19 @@ import org.springframework.web.client.RestTemplate;
 import tw.sanjiheart.model.Pokeman;
 import tw.sanjiheart.model.Status;
 import tw.sanjiheart.model.Uniname;
+import tw.sanjiheart.repo.PokemanRepo;
 
 @Service
 public class PokemanService {
 
+  @Autowired
+  private PokemanRepo pokemanRepo;
+
   public Pokeman hero() {
     Status status = new Status(255, 255, 255, 100, 100, 128);
-    Pokeman wayne = new Pokeman("Wayne", "Male", 100, status, "imgs/hero.jpg");
-    return wayne;
+    Pokeman hero = new Pokeman("Wayne", "Male", 100, status, "imgs/hero.jpg");
+    hero.setNo(1);
+    return hero;
   }
 
   public Pokeman enemy() {
@@ -39,7 +45,21 @@ public class PokemanService {
     int spd = 20 + r.nextInt(236);
     Status status = new Status(hp, atk, def, sAtk, sDef, spd);
     Pokeman pokeman = new Pokeman(uniname.getName(), uniname.getGender(), 100, status, uniname.getPhoto());
+    pokeman.setNo(2);
     return pokeman;
+  }
+
+  public Pokeman customHero(Pokeman pokeman) {
+    pokeman.setNo(1);
+    return pokemanRepo.save(pokeman);
+  }
+
+  public Pokeman get(Integer no) {
+    if (no == 1) {
+      return pokemanRepo.existsById(no) ? pokemanRepo.findById(no).get() : hero();
+    } else {
+      return enemy();
+    }
   }
 
 }

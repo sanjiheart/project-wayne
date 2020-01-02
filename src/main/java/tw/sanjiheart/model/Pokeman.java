@@ -1,7 +1,13 @@
 package tw.sanjiheart.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class Pokeman {
 
+  @Id
+  private int no;
   private String name;
   private String gender;
   private int lv;
@@ -11,12 +17,19 @@ public class Pokeman {
   public Pokeman() {}
 
   public Pokeman(String name, String gender, int lv, Status status, String photoUrl) {
-    super();
     this.name = name;
     this.gender = gender;
     this.lv = lv;
     this.status = status;
     this.photoUrl = photoUrl;
+  }
+
+  public int getNo() {
+    return no;
+  }
+
+  public void setNo(int no) {
+    this.no = no;
   }
 
   public String getName() {
@@ -61,8 +74,8 @@ public class Pokeman {
 
   @Override
   public String toString() {
-    return "Pokeman [name=" + name + ", gender=" + gender + ", lv=" + lv + ", status=" + status + ", photoUrl="
-        + photoUrl + "]";
+    return "Pokeman [no=" + no + ", name=" + name + ", gender=" + gender + ", lv=" + lv + ", status=" + status
+        + ", photoUrl=" + photoUrl + "]";
   }
 
 }
