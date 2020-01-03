@@ -54,11 +54,11 @@ $(function () {
                 let $svg = $(event.currentTarget).find('svg');
                 if ($svg.hasClass('fa-volume-mute')) {
                     this.battleAudio.pause();
-                    $svg.removeClass('fa-volume-mute').addClass('fa-volume-up');
+                    $svg.removeClass('fa-volume-mute').addClass('fa-play-circle');
                 } else {
                     this.battleAudio.loop = true;
                     this.battleAudio.play();
-                    $svg.removeClass('fa-volume-up').addClass('fa-volume-mute');
+                    $svg.removeClass('fa-play-circle').addClass('fa-volume-mute');
                 }
             },
             getAttackerAndDefender() {
