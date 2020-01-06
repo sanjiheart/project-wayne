@@ -36,18 +36,20 @@ $(function () {
         },
         methods: {
             getPokeman(no) {
-                $.ajax({
-                    url: `${GLOBAL_CONFIG.apiEndpoint}/pokeman/${no}`,
+                fetch(`${GLOBAL_CONFIG.apiEndpoint}/pokeman/${no}`, {
                     method: 'GET'
-                }).done(pokeman => {
+                }).then(response => {
+                    if (!response.ok) { throw response }
+                    return response.json();
+                }).then(pokeman => {
                     if (no === 1) {
                         this.hero = pokeman;
                     } else {
                         this.enemy = pokeman;
                         $('#battle').prop('disabled', false);
                     }
-                }).fail(jqXHR => {
-                    console.error(JSON.stringify(jqXHR));
+                }).catch(err => {
+                    err.json().then(x => { console.error(x.message); });
                 });
             },
             playBattleAudio() {

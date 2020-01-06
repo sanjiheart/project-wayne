@@ -11,27 +11,31 @@ $(function () {
         },
         methods: {
             getHero() {
-                $.ajax({
-                    url: `${GLOBAL_CONFIG.apiEndpoint}/pokeman/1`,
+                fetch(`${GLOBAL_CONFIG.apiEndpoint}/pokeman/1`, {
                     method: 'GET'
-                }).done(hero => {
+                }).then(response => {
+                    if (!response.ok) { throw response; }
+                    return response.json();
+                }).then(hero => {
                     this.hero = hero;
-                }).fail(jqXHR => {
-                    console.error(JSON.stringify(jqXHR));
+                }).catch(err => {
+                    err.json().then(x => { console.error(x.message); });
                 });
             },
             updateHero(hero) {
-                $.ajax({
-                    url: `${GLOBAL_CONFIG.apiEndpoint}/pokeman/1`,
+                fetch(`${GLOBAL_CONFIG.apiEndpoint}/pokeman/1`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    data: JSON.stringify(hero)
-                }).done(hero => {
+                    body: JSON.stringify(hero)
+                }).then(response => {
+                    if (!response.ok) { throw response; }
+                    return response.json();
+                }).then(hero => {
                     this.hero = hero;
-                }).fail(jqXHR => {
-                    console.error(JSON.stringify(jqXHR));
+                }).catch(err => {
+                    err.json().then(x => { console.error(x.message); });
                 });
             },
             save() {
