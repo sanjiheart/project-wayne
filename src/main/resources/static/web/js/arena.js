@@ -46,6 +46,8 @@ $(function () {
                         this.hero = pokeman;
                     } else {
                         this.enemy = pokeman;
+                        $(`img[alt="hero-pic"]`).removeClass('animated shake');
+                        $(`img[alt="enemy-pic"]`).removeClass('animated shake');
                         $('#battle').prop('disabled', false);
                     }
                 }).catch(err => {
