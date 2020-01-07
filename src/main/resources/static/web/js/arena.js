@@ -7,6 +7,7 @@ $(function () {
         data: {
             hero: {
                 name: 'Wayne',
+                lv: 1,
                 status: {
                     hp: 0,
                     attack: 0,
@@ -19,6 +20,7 @@ $(function () {
             },
             enemy: {
                 name: '???',
+                lv: 1,
                 status: {
                     hp: 0,
                     attack: 0,
@@ -94,7 +96,11 @@ $(function () {
                         text: `${defender.name} has been K.O.`,
                         icon: 'success',
                         iconHtml: '<i class="fas fa-trophy"></i>',
-                        confirmButtonText: 'Good Job'
+                        customClass: {
+                            confirmButton: 'btn btn-primary'
+                        },
+                        confirmButtonText: 'Good Job',
+                        buttonsStyling: false
                     });
                     // reset
                     this.round = 0;
@@ -107,12 +113,22 @@ $(function () {
                         position: 'bottom',
                         timer: 3000,
                         timerProgressBar: true,
-                        showConfirmButton: false
+                        showConfirmButton: false,
+                        buttonsStyling: false
                     });
                 }
             }
         },
         mounted() {
+            Swal.fire({
+                title: 'How to start',
+                text: 'Meet the enemy first, then start the battle.',
+                customClass: {
+                    confirmButton: 'btn btn-primary'
+                },
+                confirmButtonText: 'Got it',
+                buttonsStyling: false
+            });
             this.getPokeman(1);
         }
     });

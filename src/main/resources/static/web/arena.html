@@ -72,6 +72,7 @@
                                         <div class="col-md-12">
                                             <div class="text-center">
                                                 <img :src="hero.photoUrl" alt="hero-pic" class="img-fluid" width="50%">
+                                                <div style="font-weight: bold;">{{ 'Lv.' + hero.lv }}</div>
                                             </div>
                                             <div class="progress-group">
                                                 <span>HP</span>
@@ -161,6 +162,7 @@
                                             <div class="text-center">
                                                 <img :src="enemy.photoUrl" alt="enemy-pic" class="img-fluid"
                                                     width="50%">
+                                                <div style="font-weight: bold;">{{ 'Lv.' + enemy.lv }}</div>
                                             </div>
                                             <div class="progress-group">
                                                 <span>HP</span>
@@ -220,7 +222,7 @@
                                 <div class="card-footer text-center">
                                     <button class="btn bg-teal" @click="getPokeman(2)">
                                         <i class="fas fa-seedling"></i>
-                                        <span>Encounter new enemy</span>
+                                        <span>Meet new enemy</span>
                                     </button>
                                 </div>
                             </div>
