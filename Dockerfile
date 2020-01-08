@@ -1,4 +1,4 @@
-FROM openjdk
+FROM adoptopenjdk:13.0.1_9-jdk_hotspot
 
 WORKDIR /app
 
