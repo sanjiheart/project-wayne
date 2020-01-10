@@ -99,7 +99,7 @@ $(function () {
                         customClass: {
                             confirmButton: 'btn btn-primary'
                         },
-                        confirmButtonText: 'Good Job',
+                        confirmButtonText: '<i class="fas fa-thumbs-up fa-fw"></i><span>Good Job</span>',
                         buttonsStyling: false
                     });
                     // reset
@@ -126,7 +126,7 @@ $(function () {
                 customClass: {
                     confirmButton: 'btn btn-primary'
                 },
-                confirmButtonText: 'Got it',
+                confirmButtonText: '<i class="fas fa-check-circle fa-fw"></i><span>Got it</span>',
                 buttonsStyling: false
             });
             this.getPokeman(1);

@@ -23,6 +23,7 @@ $(function () {
                 });
             },
             updateHero(hero) {
+                $('#save').prop('disabled', true);
                 fetch(`${GLOBAL_CONFIG.apiEndpoint}/pokeman/1`, {
                     method: 'PUT',
                     headers: {
@@ -33,8 +34,10 @@ $(function () {
                     if (!response.ok) { throw response; }
                     return response.json();
                 }).then(hero => {
+                    $('#save').prop('disabled', false);
                     this.hero = hero;
                 }).catch(err => {
+                    $('#save').prop('disabled', false);
                     err.json().then(x => { console.error(x.message); });
                 });
             },
