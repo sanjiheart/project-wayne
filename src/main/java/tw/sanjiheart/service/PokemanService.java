@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
@@ -56,7 +57,12 @@ public class PokemanService {
 
   public Pokeman get(Integer no) {
     if (no == 1) {
-      return pokemanRepo.existsById(no) ? pokemanRepo.findById(no).get() : hero();
+      try {
+        return pokemanRepo.existsById(no) ? pokemanRepo.findById(no).get() : hero();
+      } catch (DataAccessResourceFailureException e) {
+        e.printStackTrace();
+        return hero();
+      }
     } else {
       return enemy();
     }

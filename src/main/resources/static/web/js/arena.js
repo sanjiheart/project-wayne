@@ -120,15 +120,24 @@ $(function () {
             }
         },
         mounted() {
-            Swal.fire({
-                title: 'How to start',
-                text: 'Meet the enemy first, then start the battle.',
-                customClass: {
-                    confirmButton: 'btn btn-primary'
-                },
-                confirmButtonText: 'Got it',
-                buttonsStyling: false
-            });
+            if (sessionStorage.getItem('first-hint') !== 'true') {
+                Swal.fire({
+                    title: 'How to start',
+                    text: 'Meet the enemy first, then start the battle.',
+                    customClass: {
+                        confirmButton: 'btn btn-primary',
+                        cancelButton: 'btn btn-default'
+                    },
+                    showCancelButton: true,
+                    confirmButtonText: 'Got it and don\'t show',
+                    cancelButtonText: 'Got it',
+                    buttonsStyling: false
+                }).then(result => {
+                    if (result.value) {
+                        sessionStorage.setItem('first-hint', true);
+                    }
+                });
+            }
             this.getPokeman(1);
         }
     });
