@@ -99,7 +99,7 @@ $(function () {
                         customClass: {
                             confirmButton: 'btn btn-primary'
                         },
-                        confirmButtonText: 'Good Job',
+                        confirmButtonText: '<i class="fas fa-thumbs-up fa-fw"></i><span>Good Job</span>',
                         buttonsStyling: false
                     });
                     // reset
@@ -129,8 +129,8 @@ $(function () {
                         cancelButton: 'btn btn-default'
                     },
                     showCancelButton: true,
-                    confirmButtonText: 'Got it and don\'t show',
-                    cancelButtonText: 'Got it',
+                    confirmButtonText: '<i class="fas fa-check-circle fa-fw"></i><span>Got it and don\'t show</span>',
+                    cancelButtonText: '<i class="fas fa-times-circle fa-fw"></i><span>Got it</span>',
                     buttonsStyling: false
                 }).then(result => {
                     if (result.value) {
