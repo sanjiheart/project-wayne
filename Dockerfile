@@ -1,9 +1,9 @@
-FROM adoptopenjdk:13.0.1_9-jdk_hotspot
+FROM adoptopenjdk:13.0.1_9-jdk-hotspot
 
 WORKDIR /app
 
-COPY . /app
+COPY ./build/libs /app
 
 EXPOSE 8888
 
-CMD ["java", "-jar", "build/libs/project-wayne-1.0.0.jar"]
+CMD ["java", "-jar", "project-wayne-1.0.0.jar"]
