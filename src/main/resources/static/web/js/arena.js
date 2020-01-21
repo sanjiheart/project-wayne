@@ -38,12 +38,11 @@ $(function () {
         },
         methods: {
             getPokeman(no) {
-                fetch(`${GLOBAL_CONFIG.apiEndpoint}/pokeman/${no}`, {
+                axios({
+                    url: `${GLOBAL_CONFIG.apiEndpoint}/pokeman/${no}`,
                     method: 'GET'
                 }).then(response => {
-                    if (!response.ok) { throw response }
-                    return response.json();
-                }).then(pokeman => {
+                    let pokeman = response.data;
                     if (no === 1) {
                         this.hero = pokeman;
                     } else {
@@ -53,7 +52,7 @@ $(function () {
                         $('#battle').prop('disabled', false);
                     }
                 }).catch(err => {
-                    err.json().then(x => { console.error(x.message); });
+                    console.error(err);
                 });
             },
             playBattleAudio() {
@@ -68,13 +67,13 @@ $(function () {
                 }
             },
             getAttackerAndDefender() {
-                if (this.hero.status.speed >= this.enemy.status.speed && this.round % 2 === 1) {
+                if (this.hero.status.speed >= this.enemy.status.speed && this.round % 2 === 0) {
                     return { attacker: this.hero, defender: this.enemy };
-                } else if (this.hero.status.speed >= this.enemy.status.speed && this.round % 2 === 0) {
-                    return { attacker: this.enemy, defender: this.hero };
-                } else if (this.hero.status.speed < this.enemy.status.speed && this.round % 2 === 1) {
+                } else if (this.hero.status.speed >= this.enemy.status.speed && this.round % 2 === 1) {
                     return { attacker: this.enemy, defender: this.hero };
                 } else if (this.hero.status.speed < this.enemy.status.speed && this.round % 2 === 0) {
+                    return { attacker: this.enemy, defender: this.hero };
+                } else if (this.hero.status.speed < this.enemy.status.speed && this.round % 2 === 1) {
                     return { attacker: this.hero, defender: this.enemy };
                 }
             },
