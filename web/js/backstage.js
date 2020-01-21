@@ -12,7 +12,7 @@ $(function () {
         methods: {
             getHero() {
                 axios({
-                    url: `${GLOBAL_CONFIG.apiEndpoint}/pokeman/1`,
+                    url: `${GLOBAL_CONFIG.apiEndpoint}/pokemans/1`,
                     method: 'GET'
                 }).then(response => {
                     this.hero = response.data;
@@ -23,9 +23,9 @@ $(function () {
             updateHero(hero) {
                 $('#save').prop('disabled', true);
                 axios({
-                    url: `${GLOBAL_CONFIG.apiEndpoint}/pokeman/1`,
+                    url: `${GLOBAL_CONFIG.apiEndpoint}/pokemans/1`,
                     method: 'PUT',
-                    body: hero
+                    data: hero
                 }).then(response => {
                     $('#save').prop('disabled', false);
                     this.hero = response.data;

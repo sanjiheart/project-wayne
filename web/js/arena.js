@@ -39,7 +39,7 @@ $(function () {
         methods: {
             getPokeman(no) {
                 axios({
-                    url: `${GLOBAL_CONFIG.apiEndpoint}/pokeman/${no}`,
+                    url: `${GLOBAL_CONFIG.apiEndpoint}/pokemans/${no}`,
                     method: 'GET'
                 }).then(response => {
                     let pokeman = response.data;

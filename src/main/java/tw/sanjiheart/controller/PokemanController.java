@@ -22,7 +22,7 @@ public class PokemanController {
   @Autowired
   private PokemanService pokemanService;
 
-  @GetMapping("/pokeman/{no}")
+  @GetMapping("/pokemans/{no}")
   public Pokeman get(@PathVariable Integer no) {
     if (no != 1 && no != 2) {
       throw new HttpException(HttpStatus.NOT_FOUND, "Parameter 'no' only accepts '1' or '2'.");
@@ -31,7 +31,7 @@ public class PokemanController {
     return pokemanService.get(no);
   }
 
-  @PutMapping("/pokeman/1")
+  @PutMapping("/pokemans/1")
   public Pokeman customHero(@RequestBody Pokeman pokeman) {
     Objects.requireNonNull(pokeman.getName(), "Field 'name' is required.");
     Objects.requireNonNull(pokeman.getGender(), "Field 'gender' is required.");
