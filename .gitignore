@@ -4,6 +4,7 @@ gradlew.bat
 **/bin/
 **/build/
 **/node_modules/
+src/main/resources/static/web
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###

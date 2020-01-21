@@ -1,4 +1,4 @@
-FROM adoptopenjdk:13.0.1_9-jdk-hotspot
+FROM jessechang9527/adoptopenjdk:8-jre-hotspot-bionic
 
 WORKDIR /app
 
