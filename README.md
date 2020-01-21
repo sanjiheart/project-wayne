@@ -10,10 +10,7 @@ Refer to **Pokemon**, **Pokeman = pocket + human**.
 - [Yarn](https://yarnpkg.com/zh-Hans/)
 
 ## Build steps
+
 1. Execute:
 
-	   yarn install && gulp build
-	   
-2. Then execute:
-
-	   gradle clean build && java -jar build/libs/project-wayne-1.0.0.jar
+	   ./run.sh
