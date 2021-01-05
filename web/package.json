@@ -8,7 +8,7 @@
   "dependencies": {
     "admin-lte": "^3.0",
     "animate.css": "^3.7.2",
-    "axios": "^0.19.1",
+    "axios": "^0.21.1",
     "sweetalert2": "^9.5.4",
     "vue": "^2.6.11"
   }
